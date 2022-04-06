@@ -24,25 +24,25 @@ namespace GildedRoseTests
             };
 
 
-            //var app = new GildedRoseKata.GildedRose();
+            var app = new GildedRoseKata.GildedRose();
 
-            //int days = 2;
-            //if (args.Length > 0)
-            //{
-            //    days = int.Parse(args[0]) + 1;
-            //}
+            int days = 2;
+            if (args.Length > 0)
+            {
+                days = int.Parse(args[0]) + 1;
+            }
 
-            //for (var i = 0; i < days; i++)
-            //{
-            //    Console.WriteLine("-------- day " + i + " --------");
-            //    Console.WriteLine("name, sellIn, quality");
-            //    foreach(var item in app.Items)
-            //    {
-            //        System.Console.WriteLine(item.Name + ", " + item.SellIn + ", " + item.Quality);
-            //    }
-            //    Console.WriteLine("");
-            //    app.UpdateQuality();
-            //}
+            for (var i = 0; i < days; i++)
+            {
+                Console.WriteLine("-------- day " + i + " --------");
+                Console.WriteLine("name, sellIn, quality");
+                foreach(var item in app.Items)
+                {
+                    System.Console.WriteLine(item.Name + ", " + item.SellIn + ", " + item.Quality);
+                }
+                Console.WriteLine("");
+                app.UpdateQuality();
+            }
         }
     }
 }

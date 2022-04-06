@@ -6,20 +6,20 @@ namespace GildedRoseKata
     public class GildedRose
     {
         public IList<Item> Items;
-        public GildedRose(IList<Item> Items)
+        public GildedRose(IList<Item> items)
         {
-            this.Items = Items;
+            Items = items;
         }
-
         public void UpdateQuality()
         {
             var factory = new ItemFactory();
             foreach (var item in Items)
             {
+                if (item.Name == "Sulfuras")
+                    break;
                 item.ChangeDay();
-
                 var update = factory.GetItem(item);
-                update.updateQuality();
+                update.UpdateQuality(item);
             }
         }
     }

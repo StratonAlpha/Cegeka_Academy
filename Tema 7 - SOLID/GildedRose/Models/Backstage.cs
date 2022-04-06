@@ -2,28 +2,22 @@
 
 namespace GildedRose.Models
 {
-    public class Backstage : Item
+    public class Backstage : QualityModifier
     {
-        public Backstage() : base()
+        public override void UpdateQuality(Item item)
         {
-        }
+            IncreaseQuality(item);
 
-        public Backstage(string name, int sellIn, int quality) : base(name, sellIn, quality)
-        {
-            Name = name;
-            SellIn = sellIn;
-            Quality = quality;
-        }
-
-        public override void updateQuality()
-        {
-            IncreaseQuality();
-
-            if(SellIn <= 10)
-                IncreaseQuality();
+            if(item.SellIn <= 10)
+                IncreaseQuality(item);
             
-            if(SellIn <= 5)
-                IncreaseQuality();
+            if(item.SellIn <= 5)
+                IncreaseQuality(item);
+
+            if(item.SellIn <= 0)
+            {
+                item.Quality = 0;
+            }
         }
     }
 }

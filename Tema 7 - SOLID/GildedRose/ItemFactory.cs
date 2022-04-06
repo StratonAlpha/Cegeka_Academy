@@ -10,16 +10,18 @@ namespace GildedRose
 {
     public class ItemFactory
     {
-        public Item GetItem(Item item)
+        public QualityModifier GetItem(Item item)
         {
             switch (item.Name)
             {
-                case "Aged Brie":
-                    return new AgedBrie(item.Name, item.SellIn, item.Quality);
-                case "Backstage Pass":
-                    return new Backstage(item.Name, item.SellIn, item.Quality);
+                case "AgedBrie":
+                    return new AgedBrie();
+                case "Backstage":
+                    return new Backstage();
+                case "Conjured":
+                    return new Conjured();
                 default:
-                    return new Item(item.Name, item.SellIn, item.Quality);
+                    return new QualityModifier();
             }
         }
     }
