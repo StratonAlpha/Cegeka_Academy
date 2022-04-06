@@ -47,36 +47,37 @@ namespace CarDealership.Controllers
         }
 
         [HttpPatch("updateCarOffer")]
-        public async Task<IActionResult> Update(int _carId, string _paramToChange, string _newStringValue) //ask
+        public async Task<IActionResult> Update(int _carId, string _paramToChange, string _newStringValue)
         {
-            foreach (var customer in _dbContext.CarOffers)
+
+            var offer = await _dbContext.CarOffers.FirstOrDefaultAsync(offer => offer.Id == _carId);
+
+            if(offer == null)
             {
-                if (customer.Id == _carId)
-                {
-                    if (_paramToChange == "make")
+                return NotFound();
+            }
+
+            switch (_paramToChange)
+            {
+                case "Make":
+                    offer.Make = _newStringValue;
+                    break;
+                case "Model":
+                    offer.Model = _newStringValue;
+                    break;
+                case "AvailableStock":
+                    try
                     {
-                        customer.Make = _newStringValue;
-                        break;
+                        offer.AvailableStock = Convert.ToInt32(_newStringValue);
                     }
-                    else if (_paramToChange == "model")
+                    catch (InvalidCastException e)
                     {
-                        customer.Model = _newStringValue;
-                        break;
+                        return BadRequest("Please provide a valid value");
                     }
-                    else if (_paramToChange == "availableStock")
-                    {
-                        try
-                        {
-                            customer.AvailableStock = Convert.ToInt32(_newStringValue);
-                        }
-                        catch (InvalidCastException e)
-                        {
-                            return BadRequest("Please provide a valid value");
-                        }
-                    }
-                    else
-                        return BadRequest("Please provide a valid parameter");
-                }
+                    break;
+
+                default:
+                    return BadRequest("Please provide a valid parameter");
             }
 
             await _dbContext.SaveChangesAsync();
@@ -89,14 +90,15 @@ namespace CarDealership.Controllers
         [HttpDelete("deleteCarOffer")]
         public async Task<IActionResult> Remove(int _carId)
         {
-            foreach (var carOffer in _dbContext.CarOffers)
+
+            var offer = await _dbContext.CarOffers.FirstOrDefaultAsync(offer => offer.Id==_carId);
+
+            if( offer == null)
             {
-                if (carOffer.Id == _carId)
-                {
-                    _dbContext.CarOffers.Remove(carOffer);
-                    break;
-                }
+                return NotFound();
             }
+
+            _dbContext.CarOffers.Remove(offer);
 
             await _dbContext.SaveChangesAsync();
 

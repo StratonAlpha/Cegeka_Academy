@@ -55,6 +55,7 @@ namespace WebCarDealership.Controllers
             {
                 CarOfferId = model.CarOfferId,
                 CustomerId = model.CustomerId,
+                InvoiceId = model.InvoiceId,
                 Date = DateTime.UtcNow,
                 Quantity = model.Quantity
             };
@@ -72,19 +73,15 @@ namespace WebCarDealership.Controllers
         [HttpGet("filterQuersyString.NotWorking")]
         public async Task<IActionResult> Filter([FromQuery(Name = "CustomerId")] int Id)
         {
-            if (Id == 0)
-                return BadRequest(); //should add this to the rest
-            else
-            {
-                var order = await _dbContext.Orders.FirstOrDefaultAsync(order => order.CustomerId == Id);
-                return Ok(order);
-            }
+            await _dbContext.Orders.FirstOrDefaultAsync(order => order.CustomerId == Id);
+            return Ok();
         }
 
         [HttpGet("filterWorking.NoQuerryString")]
         public async Task<IActionResult> FilterCheat(int value)
         {
-            return Ok(await _dbContext.Orders.FirstOrDefaultAsync(order => order.CustomerId == value));
+            await _dbContext.Orders.FirstOrDefaultAsync(order => order.CustomerId == value);
+            return Ok();
         }
     }
 }

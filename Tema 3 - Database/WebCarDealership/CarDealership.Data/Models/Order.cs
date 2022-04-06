@@ -12,11 +12,15 @@ namespace CarDealership.Data.Models
 
         public int CustomerId { get; set; }
 
+        public int InvoiceId { get; set; }
+
         public int CarOfferId { get; set; }
 
         public DateTime Date { get; set; }
 
         public int Quantity { get; set; }
+
+        public Invoice Invoice { get; set; }
 
         public Customer Customer { get; set; }
 

@@ -10,6 +10,9 @@ namespace WebCarDealership.Requests
         [Required]
         public int CarOfferId { get; set; }
 
+        [Required]
+        public int InvoiceId { get; set; }
+
         [Range(1, 100)]
         public int Quantity { get; set; }
     }

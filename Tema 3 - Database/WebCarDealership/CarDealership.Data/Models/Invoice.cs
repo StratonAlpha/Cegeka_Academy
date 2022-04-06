@@ -8,6 +8,6 @@
         public DateTime InvoiceDate { get; set; }
         public int Amount { get; set; }
 
-        //public ICollection<Order> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

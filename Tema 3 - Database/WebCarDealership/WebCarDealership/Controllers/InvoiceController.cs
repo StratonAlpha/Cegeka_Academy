@@ -17,7 +17,7 @@ namespace WebCarDealership.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet("GetAllInvoices")] //reasons unkown, must add name to method, or [Fetch errorresponse status is 500 /swagger/v1/swagger.json]
+        [HttpGet("GetAllInvoices")]
         public async Task<IActionResult> Get()
         {
             var invoice = await _dbContext.Invoices.ToListAsync();

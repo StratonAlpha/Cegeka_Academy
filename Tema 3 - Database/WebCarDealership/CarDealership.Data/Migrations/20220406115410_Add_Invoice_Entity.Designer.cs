@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebCarDealership;
 
@@ -11,9 +12,10 @@ using WebCarDealership;
 namespace CarDealership.Data.Migrations
 {
     [DbContext(typeof(DealershipDbContext))]
-    partial class DealershipDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220406115410_Add_Invoice_Entity")]
+    partial class Add_Invoice_Entity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -48,23 +48,22 @@ namespace WebCarDealership.Controllers
         [HttpPatch("updateCustomer")]
         public async Task<IActionResult> Update(int _customerId, string _paramToChange, string _newValue)
         {
-            foreach (var customer in _dbContext.Customers)
+            var customer = await _dbContext.Customers.FirstOrDefaultAsync(customer => customer.Id == _customerId);
+            if (customer == null) 
+            { 
+                return NotFound();
+            }
+
+            switch (_paramToChange)
             {
-                if (customer.Id == _customerId)
-                {
-                    if (_paramToChange == "Name")
-                    {
-                        customer.Name = _newValue;
-                        break;
-                    }
-                    else if (_paramToChange == "Email")
-                    {
-                        customer.Email = _newValue;
-                        break;
-                    }
-                    else
-                        return BadRequest("Please provide a valid parameter to be changed");
-                }
+                case "Name":
+                    customer.Name = _newValue;
+                    break;
+                case "Email":
+                    customer.Email = _newValue;
+                    break;
+                default:
+                    return BadRequest();
             }
 
             await _dbContext.SaveChangesAsync();
@@ -75,13 +74,10 @@ namespace WebCarDealership.Controllers
         [HttpDelete("deleteCustomer")]
         public async Task<IActionResult> Remove(int _customerId)
         {
-            foreach (var customer in _dbContext.Customers)
+            var customer = await _dbContext.Customers.FirstOrDefaultAsync(customer => customer.Id == _customerId);
+            if(customer == null)
             {
-                if (customer.Id == _customerId)
-                {
-                    _dbContext.Customers.Remove(customer);
-                    break;
-                }
+                return NotFound();
             }
 
             await _dbContext.SaveChangesAsync();
